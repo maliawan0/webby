@@ -10,14 +10,39 @@
 
     <h2>We are going to make forms</h2>
     <form action="backend.php">
+        <label for="name">Enter your name</label>
         <div>
-            Enter your name : <input type="text"> 
+            <input type="text" name = "myName" id="name"> 
+        </div>
+        <br>
+        <label for="name">Enter University</label>
+        <div>
+            <input type="text" name =  "UniversityName" id="name">
+        </div>
+        <br>
+        <label for="name">Enter Email</label>
+        <div>
+            <input type="email" name="myEmail" id="name">
+        </div>
+        <br>
+        <br>
+        <div>
+            Enter Number: <input type="number" value="mynumber">
+        </div>
+        <div>
+            Are you alive : <input type="checkbox" type="ChecElgbl"> yes am eligible 
         </div>
         <br>
         <div>
-            Enter your University : <input type="text">
+            write about yourself:  <br> <textarea name="myText" id="" cols="30" rows="10"></textarea>
         </div>
-
+        <div>
+            Gender : Male <input type="radio" name="Gmale"> Female <input type="radio" name="Gmale">
+        </div>
+        <br>
+        <div>
+            Submit :<input type="submit" value="Submit Now">
+        </div>
     </form>
 </body>
 </html>
