@@ -1,58 +1,87 @@
+Here's the updated code with a Pinterest-style theme! It now features a soft, minimalistic design with a card-based layout, elegant fonts, and a warm color palette. Let me know if you need any refinements! 🚀  
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Generator</title>
-    <!-- Bootstrap CSS -->
+    <title>CV Generator - Pinterest Style</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .cv-container {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 10px;
-            margin: 20px auto;
-            padding: 30px;
+        body {
+            background-color: #faf3e0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .form-container {
+            background-color: white;
             max-width: 800px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        .cv-header {
-            border-bottom: 2px solid #007bff;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
+
+        .btn-primary {
+            background-color: #ff6f61;
+            border-color: #ff6f61;
         }
-        
-        .section-title {
-            color: #007bff;
-            margin-bottom: 15px;
+
+        .btn-primary:hover {
+            background-color: #e85b50;
+            border-color: #e85b50;
         }
-        
-        .skill-badge {
-            background-color: #007bff;
-            margin: 2px;
-            padding: 8px 12px;
-            border-radius: 20px;
-        }
-        
-        #cvOutput {
+
+        .cv-container {
+            background-color: white;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             display: none;
         }
-        
-        .form-container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+
+        .cv-header {
+            text-align: center;
+            border-bottom: 3px solid #ff6f61;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            color: #ff6f61;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .skill-badge {
+            background-color: #ff6f61;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 5px 5px 0 0;
+        }
+
+        .input-group .btn {
+            background-color: #ff6f61;
+            border-color: #ff6f61;
+            color: white;
+        }
+
+        .input-group .btn:hover {
+            background-color: #e85b50;
+            border-color: #e85b50;
         }
     </style>
 </head>
-<body class="bg-light">
+<body>
+
     <div class="container">
-        <h1 class="text-center my-4">CV Generator</h1>
-        
+        <h1 class="text-center my-4" style="color: #ff6f61; font-weight: bold;">CV Generator</h1>
+
         <!-- Input Form -->
         <div class="form-container">
             <form id="cvForm" novalidate>
@@ -102,7 +131,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Generate CV</button>
+                <button type="submit" class="btn btn-primary w-100">Generate CV</button>
             </form>
         </div>
 
@@ -137,7 +166,6 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function addSkillField() {
@@ -160,7 +188,6 @@
                 return;
             }
 
-            // Get form values
             const cvData = {
                 name: document.getElementById('fullName').value,
                 address: document.getElementById('address').value,
@@ -174,7 +201,6 @@
                           .filter(skill => skill.trim() !== '')
             };
 
-            // Update CV Output
             document.getElementById('cvName').textContent = cvData.name;
             document.getElementById('cvAddress').textContent = cvData.address;
             document.getElementById('cvContact').textContent = cvData.contact;
@@ -184,17 +210,12 @@
             document.getElementById('cvExperience').textContent = cvData.experience;
             
             const skillsContainer = document.getElementById('cvSkills');
-            skillsContainer.innerHTML = cvData.skills
-                .map(skill => `<span class="skill-badge text-white d-inline-block">${skill}</span>`)
-                .join('');
+            skillsContainer.innerHTML = cvData.skills.map(skill => `<span class="skill-badge">${skill}</span>`).join('');
 
-            // Show CV Output
             document.getElementById('cvOutput').style.display = 'block';
-            window.scrollTo({
-                top: document.getElementById('cvOutput').offsetTop,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: document.getElementById('cvOutput').offsetTop, behavior: 'smooth' });
         });
     </script>
 </body>
 </html>
+```
