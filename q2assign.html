@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Showcase</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .movie-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 25px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .movie-poster {
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .rating-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: white;
+        }
+
+        .movie-hover-card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 10px;
+            overflow-y: auto;
+        }
+
+        .movie-card:hover .movie-hover-card {
+            opacity: 1;
+        }
+
+        .genre-badge {
+            background-color: #007bff;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body class="bg-dark">
+    <div class="container py-5">
+        <h1 class="text-center text-white mb-5">Movie Showcase</h1>
+        
+        <div class="row" id="movieContainer">
+            <!-- Movies will be loaded here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_KEY = '257128bc';
+        const movieIDs = [
+            'tt3896198',  // Guardians of the Galaxy Vol. 2
+            'tt0848228',  // The Avengers
+            'tt0944947',  // Game of Thrones
+            'tt0111161',  // The Shawshank Redemption
+            'tt0468569'   // The Dark Knight
+        ];
+
+        async function fetchMovies() {
+            try {
+                const movies = await Promise.all(
+                    movieIDs.map(async id => {
+                        const response = await fetch(`https://www.omdbapi.com/?i=${id}&apikey=${API_KEY}`);
+                        return await response.json();
+                    })
+                );
+                displayMovies(movies);
+            } catch (error) {
+                console.error('Error fetching movies:', error);
+                // Fallback data
+                const fallbackMovies = [
+                    {
+                        Title: "Guardians of the Galaxy Vol. 2",
+                        imdbRating: "7.6",
+                        Poster: "https://m.media-amazon.com/images/M/MV5BNjM0NTc0NzItM2FlYS00YzEwLWE0YmUtNTA2ZWIzODc2OTgxXkEyXkFqcGdeQXVyNTgwNzIyNzg@._V1_SX300.jpg",
+                        Plot: "The Guardians struggle to keep together as a team while dealing with their personal family issues...",
+                        Released: "05 May 2017",
+                        Genre: "Action, Adventure, Comedy"
+                    },
+                    // Add more fallback movies if needed
+                ];
+                displayMovies(fallbackMovies);
+            }
+        }
+
+        function displayMovies(movies) {
+            const container = document.getElementById('movieContainer');
+            
+            movies.forEach(movie => {
+                const movieEl = document.createElement('div');
+                movieEl.className = 'col-md-4 mb-4';
+                movieEl.innerHTML = `
+                    <div class="movie-card bg-light">
+                        <div class="position-relative">
+                            <img src="${movie.Poster}" 
+                                 class="movie-poster w-100" 
+                                 alt="${movie.Title}">
+                            <span class="rating-badge">
+                                ★ ${movie.imdbRating}
+                            </span>
+                        </div>
+                        <div class="p-3">
+                            <h4>${movie.Title}</h4>
+                        </div>
+                        <div class="movie-hover-card">
+                            <h4>${movie.Title}</h4>
+                            <p><strong>Plot:</strong> ${movie.Plot}</p>
+                            <p><strong>Released:</strong> ${movie.Released}</p>
+                            <p><strong>Runtime:</strong> ${movie.Runtime}</p>
+                            <p><strong>Director:</strong> ${movie.Director}</p>
+                            <div class="genres">
+                                ${movie.Genre.split(', ').map(genre => `
+                                    <span class="badge genre-badge">${genre}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(movieEl);
+            });
+        }
+
+        // Initialize
+        fetchMovies();
+    </script>
+</body>
+</html>
